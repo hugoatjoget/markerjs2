@@ -12,5 +12,12 @@
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
     "prettier"
-  ]
+  ],
+  "rules":{
+    "@typescript-eslint/no-var-requires" : 0,
+    "@typescript-eslint/no-this-alias" : 0,
+    "@typescript-eslint/no-empty-function" : 0,
+    "no-redeclare" : 0,
+    "no-undef": 0
+  }
 }
