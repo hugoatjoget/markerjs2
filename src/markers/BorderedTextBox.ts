@@ -2,6 +2,7 @@ import {    TextMarker} from "../markers/text-marker/TextMarker";
 import {  ColorPickerPanel} from "../ui/toolbox-panels/ColorPickerPanel";
 import {  LineWidthPanel} from "../ui/toolbox-panels/LineWidthPanel";
 import {  SvgHelper} from "../core/SvgHelper";
+import { TextMarkerState } from '../markers/text-marker/TextMarkerState';
   
   export class BorderedTextBox extends TextMarker {
   
@@ -9,13 +10,14 @@ import {  SvgHelper} from "../core/SvgHelper";
     strokeWidth = 0;
     strokeDasharray = '';
     border;
-    strokePanel;
-    strokeWidthPanel;
+    //strokePanel;
+    //strokeWidthPanel;
     bgRectangle;
-    colorPanel;
-    fontFamilyPanel;
+    //colorPanel;
+    //fontFamilyPanel;
     title = "";
-    icon ="";
+    icon = "";
+    public static typeName = 'BorderedTextBox';
 
     constructor(container, overlayContainer, settings) {
       super(container, overlayContainer, settings);
@@ -27,21 +29,31 @@ import {  SvgHelper} from "../core/SvgHelper";
       this.setStrokeColor = this.setStrokeColor.bind(this);
       this.setStrokeWidth = this.setStrokeWidth.bind(this);
   
-      this.strokePanel = new ColorPickerPanel(
-        'Border color',
-        settings.defaultColorSet,
-        this.strokeColor
-      );
-      this.strokePanel.onColorChanged = this.setStrokeColor;
+      // this.strokePanel = new ColorPickerPanel(
+      //   'Border color',
+      //   settings.defaultColorSet,
+      //   this.strokeColor
+      // );
+      // this.strokePanel.onColorChanged = this.setStrokeColor;
   
-      this.strokeWidthPanel = new LineWidthPanel(
-        'Border width',
-        settings.defaultStrokeWidths,
-        this.strokeWidth
-      );
-      this.strokeWidthPanel.onWidthChanged = this.setStrokeWidth;
+      // this.strokeWidthPanel = new LineWidthPanel(
+      //   'Border width',
+      //   settings.defaultStrokeWidths,
+      //   this.strokeWidth
+      // );
+      // this.strokeWidthPanel.onWidthChanged = this.setStrokeWidth;
     }
+
+    /**
+   * Returns current marker state that can be restored in the future.
+   */
+     public getState(): TextMarkerState {
+      const result = super.getState();
+      result.typeName = BorderedTextBox.typeName;
   
+      return result;
+    }
+
     createBorder() {
       // console.log(this);
       if (this.bgRectangle) {
@@ -72,7 +84,8 @@ import {  SvgHelper} from "../core/SvgHelper";
     }
   
     get toolboxPanels() {
-      return [this.colorPanel, this.strokePanel, this.strokeWidthPanel, this.fontFamilyPanel];
+      //return [this.colorPanel, this.strokePanel, this.strokeWidthPanel, this.fontFamilyPanel];
+      return [];
     }
   
     pointerDown(point, target) {
